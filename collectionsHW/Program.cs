@@ -8,7 +8,7 @@ namespace collectionsHW
     {
         public static void Main()
         {
-            Console.WriteLine("Hello!");
+            Console.WriteLine("Hello!\n");
             ChooseOperation();
             AddCmd.Repeat('r');
         }
@@ -19,6 +19,7 @@ namespace collectionsHW
                 "\n\"queue\"" +
                 "\n\"quit\"" +
                 "\nanything else to repeat");
+            Console.Write("\nYour command: ");
             switch (Console.ReadLine().ToLower())
             {
                 case "stack":
@@ -52,6 +53,7 @@ namespace collectionsHW
                     {
                         Console.WriteLine("There are currently 0 students that sent comeplete tasks, so noone gets coffee!");
                     } //вывод сообщения о том, что ни один студент не отправил задание
+                    Console.WriteLine();
                     while (studentsStack.Count > 0)
                     {
                         Console.WriteLine($"{studentsStack.Pop()} recieved a cup of coffee as a reward.");
@@ -61,15 +63,26 @@ namespace collectionsHW
 
                 case "queue":
                     #region queue
-                    Console.WriteLine("Type names of students that sent complete tasks. Type \"quit\" to finish.");
+                    Console.WriteLine("\nType names of students that sent complete tasks. Type \"quit\" to finish.");
                     Queue<string> studentsQueue = new Queue<string>();
 
                     while (true)
                     {
                         Console.Write($"Student №{studentsQueue.Count + 1}: ");
                         string input = Console.ReadLine();
+                        while (input.Length == 0) //не даём ввести пустое имя студента
+                        {
+                            Console.WriteLine("Student's name can't be empty, input again!");
+                            Console.Write($"Student №{studentsQueue.Count + 1}: ");
+                            input = Console.ReadLine();
+                        }
                         if (input.ToLower() == "quit")
                         {
+                            if (studentsQueue.Count == 0)
+                            {
+                                Console.WriteLine("There are currently 0 students in the list. Type \"quit\" to surely finish inputing students.");
+                                input = Console.ReadLine();
+                            }//если не был введён ни один студент, то выводится просьба подтвердить окончание ввода
                             break;
                         }
                         studentsQueue.Enqueue(input);
@@ -79,6 +92,7 @@ namespace collectionsHW
                     {
                         Console.WriteLine("There are currently 0 students that sent comeplete tasks, so noone gets coffee!");
                     } //вывод сообщения о том, что ни один студент не отправил задание
+                    Console.WriteLine();
                     while (studentsQueue.Count > 0)
                     {
                         Console.WriteLine($"{studentsQueue.Dequeue()} recieved a cup of coffee as a reward.");
@@ -90,7 +104,7 @@ namespace collectionsHW
                     break;
 
                 default:
-                    Console.WriteLine("Sorry, but your input is incorrect.");
+                    Console.Clear();
                     ChooseOperation();
                     break;
             }
