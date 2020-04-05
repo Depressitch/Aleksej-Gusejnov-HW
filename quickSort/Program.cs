@@ -10,7 +10,7 @@ public static class Program
         Console.WriteLine("Your unsorted array: ");
         Array.Output(arr);
         Console.WriteLine("\n");
-        Array.QuickSort(arr);
+        arr.QuickSort();
         Console.WriteLine("Your sorted array: ");
         Array.Output(arr);
         Console.WriteLine("\n");

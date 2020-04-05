@@ -37,7 +37,7 @@ public static class Array
             Console.Write(array[i] + "\t");
         }
     } //вывод матрицы
-    public static int[] QuickSort(int[] array)
+    public static int[] QuickSort(this int[] array)
     {
         return QuickSort(array, 0, array.Length - 1);
     }
